@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Nathaniel Flath <flat0103@gmail.com>
 
 ;; Author: Nathaniel Flath <flat0103@gmail.com>
-;; Version: 1.3
+;; Version: 1.4
 
 ;; This file is not part of GNU Emacs.
 
@@ -95,9 +95,7 @@
   (save-window-excursion
     (mapcar (lambda (file)
               (find-file file)
-              (org-html-export-as-html)
-              (write-file (replace-regexp-in-string "\\.org$" ".html" file))
-              (kill-buffer))
+              (org-html-export-to-html))
             (org-agenda-files) ))
   (org-agenda 0 "a")
   (org-agenda-month-view)
