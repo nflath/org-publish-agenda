@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Nathaniel Flath <flat0103@gmail.com>
 
 ;; Author: Nathaniel Flath <flat0103@gmail.com>
-;; Version: 1.2
+;; Version: 1.3
 
 ;; This file is not part of GNU Emacs.
 
@@ -96,7 +96,7 @@
     (mapcar (lambda (file)
               (find-file file)
               (org-html-export-as-html)
-              (write-file (replace-regexp-in-string "\\.org" ".html" file))
+              (write-file (replace-regexp-in-string "\\.org$" ".html" file))
               (kill-buffer))
             (org-agenda-files) ))
   (org-agenda 0 "a")
