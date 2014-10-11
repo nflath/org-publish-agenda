@@ -129,10 +129,14 @@
             (insert "</a>")
             (forward-line)))
          (t (forward-line)))))
-    (write-file (concat (car org-agenda-files) "agenda.html"))
-    (let ((default-directory (car org-agenda-files)))
-      (shell-command "mv *.html publish/" nil)
-      (kill-buffer "agenda.html"))))
+    (let ((org-dir (if (file-directory-p (car org-agenda-files))
+                       (car org-agenda-files)
+                     (file-name-directory (car org-agenda-files)))))
+      (write-file (concat ((car org-dir) "agenda.html")))
+      (let ((default-directory org-dir))
+        (shell-command "mv *.html publish/" nil)
+        (kill-buffer "agenda.html")))))
 
 (provide 'org-publish-agenda)
 ;;; org-publish-agenda.el ends here
+(if (file-directory-p "~/.org/agenda.html") 1 2)
