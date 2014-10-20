@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Nathaniel Flath <flat0103@gmail.com>
 
 ;; Author: Nathaniel Flath <flat0103@gmail.com>
-;; Version: 1.4
+;; Version: 1.7
 
 ;; This file is not part of GNU Emacs.
 
@@ -132,11 +132,12 @@
     (let ((org-dir (if (file-directory-p (car org-agenda-files))
                        (car org-agenda-files)
                      (file-name-directory (car org-agenda-files)))))
-      (write-file (concat ((car org-dir) "agenda.html")))
-      (let ((default-directory org-dir))
-        (shell-command "mv *.html publish/" nil)
+      (write-file (concat org-dir "/agenda.html"))
+      (let ((default-directory (file-name-as-directory org-dir))
+            (publish-dir (concat default-directory "publish")))
+            (if (not (file-directory-p publish-dir)) (shell-command (concat "mkdir " publish-dir) nil))
+            (shell-command (concat "mv " default-directory "*.html " publish-dir nil))
         (kill-buffer "agenda.html")))))
 
 (provide 'org-publish-agenda)
 ;;; org-publish-agenda.el ends here
-(if (file-directory-p "~/.org/agenda.html") 1 2)
